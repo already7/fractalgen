@@ -12,6 +12,6 @@ def visualize_patch(viz_patches):
     if img_size < 256:
         viz_patches = torch.nn.functional.interpolate(viz_patches, scale_factor=256 // img_size, mode="nearest")
     save_image(viz_patches, "samples.png", nrow=4, normalize=True, value_range=(0, 1))
-    sampled_patches_viz = Image.open("samples.png")
-    clear_output(wait=True)
-    display(sampled_patches_viz)
+    #sampled_patches_viz = Image.open("samples.png")
+    #clear_output(wait=True)
+    #display(sampled_patches_viz)
