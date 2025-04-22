@@ -27,5 +27,3 @@ COPY ../ /app
 WORKDIR /app
 
 CMD ["python", "demo/run.py"]
-
-
