@@ -162,4 +162,6 @@ sampled_images = sampled_images.detach().cpu()
 # Save & display images
 save_image(sampled_images, "samples.png", nrow=int(samples_per_row), normalize=True, value_range=(0, 1))
 
+print(f"{compare_images('sdocker.png', 'samples.png'):.3f}")
+
 input()
