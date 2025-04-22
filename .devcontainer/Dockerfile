@@ -29,16 +29,3 @@ WORKDIR /app
 CMD ["python", "demo/run.py"]
 
 
-# docker build -f .devcontainer/Dockerfile -t myapp .
-# docker run -it --rm myapp
-# docker run -it --rm --gpus all myapp
-
-
-#2.678942678942679
-#9.296109296109297
-#2.9083754083754085
-
-
-#2.678942678942679
-#9.296109296109297
-#2.9083754083754085
