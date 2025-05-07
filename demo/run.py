@@ -10,6 +10,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 #os.environ['PYTHONPATH'] = '/env/python:/content/fractalgen'
 #!pip install timm==0.9.12
 import torch
+import random 
+import os
 import numpy as np
 from models import fractalgen
 from torchvision.utils import save_image
@@ -24,6 +26,14 @@ if device == "cpu":
 
 import numpy as np
 
+def seed_everything(seed: int) -> None:
+
+    random.seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+
 def compare_images(image1_path, image2_path):
 
     img1 = Image.open(image1_path)
@@ -36,10 +46,14 @@ def compare_images(image1_path, image2_path):
     print("Количество совпавших пикселей:", np.sum(equal_pixels), "Количество пикселей:", equal_pixels.size)
     diff = np.abs(arr1.astype(np.int16) - arr2.astype(np.int16))
     total_diff = np.sum(diff)
-    print("Суммарная разница между пикселями", total_diff)
+    print("Суммарная разница между пикселями: ", total_diff)
 
 
 compare_images('sdocker.png', 'samples.png')
+
+seed = 0 #@param {type:"number"}
+seed_everything(seed)
+torch.backends.cudnn.deterministic = True
 
 model_type = "fractalmar_base_in256" #@param ["fractalmar_base_in256", "fractalmar_large_in256", "fractalmar_huge_in256"]
 num_conds = 5
@@ -60,9 +74,6 @@ model.load_state_dict(state_dict)
 model.eval() # important!
 
 
-seed = 0 #@param {type:"number"}
-torch.manual_seed(seed)
-np.random.seed(seed)
 num_iter_list = 64, 16, 16 #@param {type:"raw"}
 cfg_scale = 10 #@param {type:"slider", min:1, max:20, step:0.5}
 cfg_schedule = "constant" #@param ["linear", "constant"]
